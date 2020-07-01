@@ -23,7 +23,7 @@
   }
 
   img {
-    @apply h-12;
+    @apply h-full;
   }
 
   .donate {

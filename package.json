@@ -34,12 +34,13 @@
     "rollup-plugin-svelte": "^5.2.1",
     "rollup-plugin-terser": "^5.3.0",
     "spassr": "^1.0.3",
+    "svelte-awesome": "^2.3.0",
     "svelte-css-vars": "0.0.1",
     "svelte-preprocess": "^3.9.10",
     "tailwindcss": "^1.4.6"
   },
   "dependencies": {
-    "@sveltech/routify": "^1.7.12",
+    "@sveltech/routify": "^1.8.3",
     "svelte": "^3.20.1"
   }
 }
