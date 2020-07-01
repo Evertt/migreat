@@ -6,11 +6,6 @@
   export let scoped
   const { width } = scoped
 
-  const config = {
-    inParams: { duration: 2500 },
-    outParams: { duration: 2500 },
-  }
-
   const configs = [
     {
       // New and old route are identical, do nothing
@@ -34,14 +29,14 @@
     {
       condition: c => c.toHigherIndex,
       transition: fly,
-      inParams: { x: $width, duration: 2500 },
-      outParams: { x: -$width, duration: 2500 },
+      inParams: { x: $width, duration: 500 },
+      outParams: { x: -$width, duration: 500 },
     },
     {
       condition: c => c.toLowerIndex,
       transition: fly,
-      inParams: { x: -$width, duration: 2500 },
-      outParams: { x: $width, duration: 2500 },
+      inParams: { x: -$width, duration: 500 },
+      outParams: { x: $width, duration: 500 },
     },
     {
       // No matching config. We don't want a transition

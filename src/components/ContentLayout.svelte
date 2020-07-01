@@ -1,5 +1,7 @@
 <div class="title">
-  <img src="https://picsum.photos/seed/${image}/1000/500" alt="" />
+  {#if image}
+    <img src="https://picsum.photos/seed/{image}/1000/500" alt="" />
+  {/if}
   <h1>{title}</h1>
 </div>
 
@@ -10,13 +12,8 @@
 <script>
   import { metatags } from '@sveltech/routify'
 
-  export let image = '', title = ''
-  metatags.title = title
-  let titleStyles
-
-  $: titleStyles = {
-    'bg-image-url': `url(https://picsum.photos/seed/${image}/1000/500)`
-  }
+  export let image, title
+  $: metatags.title = title
 </script>
 
 <style>

@@ -2,7 +2,7 @@
   <a class="logo" href="/">
     <img src="/img/logo.png" alt="MiGreat Logo" />
   </a>
-  <div>
+  <div class="buttons">
     <a href="/donate" class="donate" use:prefetch>Donate</a>
     <a href="/test" class="menu">&nbsp;</a>
   </div>
@@ -14,20 +14,24 @@
 
 <style>
   header {
-    @apply flex justify-between pt-8 pb-6;
+    @apply flex flex-wrap justify-center pt-6 pb-4;
     --button-height: 2.25rem;
-  }
 
-  div {
-    @apply flex items-center;
+    @media (min-width: 560px) {
+      @apply justify-between;
+    }
   }
 
   .logo {
-    @apply inline-block h-12;
+    @apply inline-block h-12 mr-4 my-2;
   }
 
   img {
     @apply h-full;
+  }
+
+  .buttons {
+    @apply flex items-center my-2;
   }
 
   .donate {
