@@ -5,6 +5,10 @@
             "handle": "filesystem"
         },
         {
+            "src": "/api/.*",
+            "dest": "/api/md.ts"
+        },
+        {
             "src": "/.*",
             "dest": "/api/ssr.js"
         }

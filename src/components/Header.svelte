@@ -1,53 +1,44 @@
-<header>
+<header class="container">
   <a class="logo" href="/">
     <img src="/img/logo.png" alt="MiGreat Logo" />
   </a>
   <div>
-    <a href="#" class="donate">Donate</a>
-    <a href="#" class="menu"></a>
+    <a href="/donate" class="donate">Donate</a>
+    <a href="/test" class="menu">&nbsp;</a>
   </div>
 </header>
 
 <style>
   header {
-    --height: 2rem;
-    padding: 1rem 0;
-    display: flex;
-    justify-content: space-between;
+    @apply flex justify-between pt-8 pb-6;
+    --button-height: 2.25rem;
   }
 
   div {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
   }
 
   .logo {
-    --logo-height: 3rem;
-    display: inline-block;
-    height: var(--logo-height);
+    @apply inline-block h-12;
   }
 
   img {
-    height: var(--logo-height);
+    @apply h-12;
   }
 
   .donate {
-    border: none;
-    background: white;
-    padding: 0 2rem;
-    height: var(--height);
-    font-weight: bold;
-    margin-right: 1rem;
-    color: black;
-    text-decoration: none;
-    line-height: var(--height);
+    @apply bg-white px-12 font-bold mr-4;
+
+    font-size: 1.1rem;
+    height: var(--button-height);
+    line-height: var(--button-height);
   }
 
   .menu {
-    border: none;
-    width: var(--height);
-    height: var(--height);
+    @apply bg-cover;
+
+    width: var(--button-height);
+    height: var(--button-height);
     background-image: url(/img/menu.png);
-    background-size: cover;
   }
 </style>

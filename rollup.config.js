@@ -1,8 +1,10 @@
 import del from 'del'
 import copy from 'rollup-plugin-copy'
 import svelte from 'rollup-plugin-svelte'
+import postcss from 'rollup-plugin-postcss'
 import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
+import sveltePreprocess from 'svelte-preprocess'
 import resolve from '@rollup/plugin-node-resolve'
 import livereload from 'rollup-plugin-livereload'
 import rootImport from 'rollup-plugin-root-import'
@@ -36,13 +38,15 @@ function createConfig({ output, inlineDynamicImports, plugins = [] }) {
           { src: [staticDir + "/*", "!*/(__index.html)"], dest: distDir },
           { src: `${staticDir}/__index.html`, dest: distDir, rename: '__app.html', transform },
         ],
-	copyOnce: true,
-	flatten: false
+        copyOnce: true,
+        flatten: false
       }),
+      postcss(),
       svelte({
         // enable run-time checks when not in production
         dev: !production,
         hydratable: true,
+        preprocess: sveltePreprocess({ postcss: true }),
         // we'll extract any component CSS out into
         // a separate file — better for performance
         css: css => {
