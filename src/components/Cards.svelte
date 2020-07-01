@@ -7,6 +7,8 @@
 </div>
 
 <script>
+  import { prefetch } from '@sveltech/routify'
+
   const links = Object.entries({
     '/support': 'Support for migrants',
     '/stop-deterrence': 'Stop deterrence',
@@ -15,6 +17,8 @@
     '/join': 'Join the movement',
     '/about': 'About MiGreat',
   })
+
+  links.forEach(([link]) => prefetch(link))
 </script>
 
 <style>

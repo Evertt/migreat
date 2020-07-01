@@ -3,10 +3,14 @@
     <img src="/img/logo.png" alt="MiGreat Logo" />
   </a>
   <div>
-    <a href="/donate" class="donate">Donate</a>
+    <a href="/donate" class="donate" use:prefetch>Donate</a>
     <a href="/test" class="menu">&nbsp;</a>
   </div>
 </header>
+
+<script>
+  import { prefetch } from '@sveltech/routify'
+</script>
 
 <style>
   header {

@@ -1,4 +1,5 @@
-<div class="title" use:cssVars={titleStyles}>
+<div class="title">
+  <img src="https://picsum.photos/seed/${image}/1000/500" alt="" />
   <h1>{title}</h1>
 </div>
 
@@ -7,7 +8,6 @@
 </div>
 
 <script>
-  import cssVars from 'svelte-css-vars'
   import { metatags } from '@sveltech/routify'
 
   export let image = '', title = ''
@@ -21,10 +21,13 @@
 
 <style>
   .title {
-    @apply hidden bg-cover bg-center items-center justify-center;
-
+    @apply hidden relative bg-cover bg-center items-center justify-center;
     height: 23rem;
-    background-image: var(--bg-image-url);
+
+    img {
+      @apply absolute w-full h-full object-cover;
+      z-index: -1;
+    }
 
     @screen md {
       @apply flex;

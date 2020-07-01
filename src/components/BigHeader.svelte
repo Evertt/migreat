@@ -3,7 +3,7 @@
     <img src="/img/logo-{logoType}.png" alt="MiGreat Logo" />
   </a>
   <div class="buttons">
-    <a class="donate" href="/donate">Donate</a>
+    <a class="donate" href="/donate" use:prefetch>Donate</a>
     <div class="social-buttons">
       {#each socialMediaLinks as [site, icon]}
         <a href="https://www.{site}.com" target="_blank" rel="noopener noreferrer">
@@ -18,6 +18,7 @@
 
 <script>
   import Icon from 'svelte-awesome'
+  import { prefetch } from '@sveltech/routify'
   import { facebook, instagram, linkedin } from 'svelte-awesome/icons'
 
   const socialMediaLinks = Object.entries({

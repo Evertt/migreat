@@ -28,10 +28,7 @@
   let metadata = {}, content = ''
 
   const load = async (slug) => {
-    const base = navigator.userAgent.match('jsdom')
-      ? 'http://localhost:3000' : ''
-
-    let resp = await fetch(`${base}/api/${slug}.json`);
+    let resp = await fetch(`${location.origin}/api/${slug}.json`);
     ({metadata, content} = await resp.json())
     $ready()
   }
