@@ -3,7 +3,7 @@
     <img src="/img/logo.png" alt="MiGreat Logo" />
   </a>
   <div class="buttons">
-    <a href="/donate" class="donate" use:prefetch>Donate</a>
+    <a href="/donate" class="donate">Donate</a>
     <a href="/test" class="menu">&nbsp;</a>
   </div>
 </header>

@@ -47,6 +47,8 @@
   ]
 </script>
 
-<BaseTransition {configs}>
-  <slot />
-</BaseTransition>
+<!--{#each [$url()] as _ ($url())}-->
+  <BaseTransition {configs}>
+    <slot />
+  </BaseTransition>
+<!--{/each}-->

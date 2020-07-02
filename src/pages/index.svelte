@@ -15,16 +15,18 @@
   import BigHeader from '/components/BigHeader.svelte'
   import { BaseTransition } from '@sveltech/routify/decorators'
 
+  const y = -window.innerHeight / 2 + 200
+
   const headerConfig = {
     transition: fly,
-    inParams: { y: -window.innerHeight / 2 + 200, duration: TRANSITION_TIME, opacity: 1, delay: TRANSITION_TIME },
-    outParams: { y: -window.innerHeight / 2 + 200, duration: TRANSITION_TIME, opacity: 1 },
+    inParams: { y, duration: TRANSITION_TIME, opacity: 1, delay: TRANSITION_TIME },
+    outParams: { y, duration: TRANSITION_TIME, opacity: 1 },
   }
 
   const cardsConfig = {
     ...headerConfig,
-    inParams: { ...headerConfig.inParams, y: document.documentElement.scrollHeight / 2 + 400 },
-    outParams: { ...headerConfig.outParams, y: document.documentElement.scrollHeight / 2 + 400 },
+    inParams: { ...headerConfig.inParams, y: y * -1 + 440 },
+    outParams: { ...headerConfig.outParams, y: y * -1 + 440 },
   }
 </script>
 
