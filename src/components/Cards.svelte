@@ -1,10 +1,10 @@
-<div class="container">
+<nav class="container">
   {#each links as [href, title]}
     <a class="card" {href}>
       {title}
     </a>
   {/each}
-</div>
+</nav>
 
 <script>
   import { prefetch } from '@sveltech/routify'

@@ -1,5 +1,5 @@
 <div bind:offsetWidth={$width}>
-  <slot decorator={TabsTransition} scoped={{ width }} />
+  <slot scoped={{ width }} />
 </div>
 
 <script>

@@ -1,5 +1,15 @@
+const dummyData = {
+  metadata: {
+    title: 'FIXME',
+    image: 'fixme',
+  },
+  content: 'This needs to be fixed...'
+}
+
 async function getFileFromVercel(url) {
-  return await fetchUrl(`https://migreat.evertt.vercel.app/${url}`)
+  // return await fetchUrl(`https://migreat.evertt.vercel.app/${url}`)
+
+  return dummyData
 }
 
 async function getFile(url) {
@@ -24,5 +34,5 @@ async function fetchUrl(url) {
 
 export default async function(url) {
   return navigator.userAgent.match('jsdom')
-    ? await getFile(url) : await fetchUrl(url)
+    ? dummyData : await fetchUrl(url)
 }

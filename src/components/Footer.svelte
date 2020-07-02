@@ -1,12 +1,6 @@
-<Cards />
-
 <footer>
   Here is the footer
 </footer>
-
-<script>
-  import Cards from "./Cards.svelte"
-</script>
 
 <style>
   footer {
