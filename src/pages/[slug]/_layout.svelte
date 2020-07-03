@@ -1,7 +1,7 @@
 <svelte:window bind:innerHeight={windowHeight} />
 
 <div id="page">
-  <div in:fly={articleConfig.inParams} out:fly={articleConfig.outParams}>
+  <div in:fly={articleIn} out:fly={articleOut}>
     <div bind:offsetHeight={headerHeight}>
       <Header />
     </div>
@@ -11,7 +11,7 @@
           bind:offsetHeight={contentHeight}>
       <!--
         This {#each} is here as a hack to make sure that
-        routing from one page to another show a transition.
+        routing from one page to another shows a transition.
       -->
       {#each array as _ (_)}
         <Transition scoped={{width: contentWidth}}>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="footer" bind:offsetHeight={footerHeight}
-       in:fly={footerConfig.inParams} out:fly={footerConfig.outParams}
+       in:fly={footerIn} out:fly={footerOut}
        style="top: {$footerTop}px; margin-top: {footerMarginTop}px;">
     <Cards />
     <Footer />
@@ -34,7 +34,6 @@
   import { writable } from 'svelte/store'
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'
-  import { fade } from 'svelte/transition'
   import { TRANSITION_TIME } from '/constants'
   import Cards from '/components/Cards.svelte'
   import Header from '/components/Header.svelte'
@@ -42,61 +41,59 @@
   import Transition from '/components/Transition.svelte'
   import { url, isActive, route } from '@sveltech/routify'
 
-  let metadata = {}, content = '', styles, array
+  let array
 
   $: array = $isActive($url()) ? [$url()] : []
 
+  let articleIn, articleOut
+  let footerIn, footerOut
+  let duration, delay
+
   const contentWidth = writable(0)
-  const footerMarginTop = 80
+  const cardsY = document.documentElement.scrollHeight / 2
+
+  $: {
+    duration = delay = $route.last ? TRANSITION_TIME : 0
+
+    articleOut = { y: -100, mode: '%', duration, opacity: 1 }
+    articleIn = { ...articleOut, delay }
+
+    footerOut = { y: cardsY, opacity: 1, duration }
+    footerIn = { ...footerOut, delay }
+  }
 
   // I'm using all these height properties
   // to calculate where the footer is supposed to go.
-  let windowHeight
-  let contentHeight
-  let headerHeight
-  let footerHeight
-  let newFooterTop
-  let articleConfig, footerConfig, duration, delay
+  let windowHeight, headerHeight, contentHeight, footerHeight
 
-  $: duration = delay = $route.last ? TRANSITION_TIME : 0
-
-  $: articleConfig = {
-    transition: fly,
-    inParams: { y: -100, mode: '%', duration, opacity: 1, delay },
-    outParams: { y: -100, mode: '%', duration, opacity: 1 },
-  }
-
-  const cardsY = document.documentElement.scrollHeight / 2
-
-  $: footerConfig = {
-    transition: fly,
-    inParams: { y: cardsY, opacity: 1, duration, delay },
-    outParams: { y: cardsY, opacity: 1, duration },
-  }
-
-  // Again, the $ makes it so that newFooterTop is re-evaluated
-  // whenever any of those height variables change.
-  // So if we route to a new page that is longer or shorter
-  // than the previous one, the position of the footer is re-evaluated.
-  $: newFooterTop = Math.max(
-    windowHeight - footerHeight - footerMarginTop,
-    headerHeight + contentHeight
-  )
+  let newFooterTop = 9999
+  const footerMarginTop = 80
 
   // This tweened function allows us to animate a value change.
   // So that the footer doesn't just jump to its new position,
   // but instead smoothly slides to its new position.
-  const footerTop = tweened(newFooterTop, {
-    easing: cubicOut
-  })
+  const footerTop = tweened(newFooterTop, { easing: cubicOut })
 
-  // Here we make sure that $footerTop is updated whenever
-  // newFooterTop is updated. But since $footerTop is a
-  // so-called tweened value, it will update itself
-  // smoothly instead of abruptly.
-  $: footerTop.set(newFooterTop, {
-    duration: $route.last ? TRANSITION_TIME : 0
-  })
+  $: {
+    // Again, the $ makes it so that newFooterTop is re-evaluated
+    // whenever any of those height variables change.
+    // So if we route to a new page that is longer or shorter
+    // than the previous one, the position of the footer is re-evaluated.
+    newFooterTop = Math.max(
+      windowHeight - footerHeight - footerMarginTop,
+      headerHeight + contentHeight
+    )
+
+    // Here we make sure that $footerTop is updated whenever
+    // newFooterTop is updated. But since $footerTop is a
+    // so-called tweened value, it will update itself
+    // smoothly instead of abruptly.
+    footerTop.set(newFooterTop, {
+      // However, if this is our landing page,
+      // we'll let the footer snap into position.
+      duration: $route.last ? TRANSITION_TIME : 0
+    })
+  }
 </script>
 
 <style>
@@ -106,7 +103,5 @@
 
   .footer {
     @apply absolute left-0 right-0;
-    /*top: 100vh;*/
-    /*transition: top 5s ease-out;*/
   }
 </style>

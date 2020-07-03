@@ -6,7 +6,7 @@ const app = HMR(App, { target: document.body }, 'routify-app')
 
 export default app
 
-if ('serviceWorker' in navigator) {
+if (location.hostname !== 'localhost' && 'serviceWorker' in navigator) {
   import('workbox-window').then(async ({ Workbox }) => {
     const wb = new Workbox('/sw.js')
     const registration = await wb.register()

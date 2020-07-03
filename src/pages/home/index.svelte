@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>MiGreat</title>
+</svelte:head>
+
 <main>
   <div in:fly={headerIn} out:fly={headerOut}>
     <BigHeader />
