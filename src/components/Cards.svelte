@@ -18,7 +18,7 @@
     '/about': 'About MiGreat',
   })
 
-  // links.forEach(([link]) => prefetch(link))
+  links.forEach(([link]) => prefetch(link))
 </script>
 
 <style>
