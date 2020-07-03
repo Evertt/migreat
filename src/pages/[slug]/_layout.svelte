@@ -13,7 +13,7 @@
         This {#each} is here as a hack to make sure that
         routing from one page to another show a transition.
       -->
-      {#each array as _ ($url())}
+      {#each array as _ (_)}
         <Transition scoped={{width: contentWidth}}>
           <slot />
         </Transition>
@@ -35,13 +35,12 @@
   import { tweened } from 'svelte/motion'
   import { cubicOut } from 'svelte/easing'
   import { fade } from 'svelte/transition'
-  import { route } from '@sveltech/routify'
   import { TRANSITION_TIME } from '/constants'
   import Cards from '/components/Cards.svelte'
-  import { url, isActive } from '@sveltech/routify'
   import Header from '/components/Header.svelte'
   import Footer from '/components/Footer.svelte'
   import Transition from '/components/Transition.svelte'
+  import { url, isActive, route } from '@sveltech/routify'
 
   let metadata = {}, content = '', styles, array
 
@@ -91,25 +90,13 @@
     easing: cubicOut
   })
 
-  let footerDuration = $route.last ? TRANSITION_TIME : 0
-
   // Here we make sure that $footerTop is updated whenever
   // newFooterTop is updated. But since $footerTop is a
   // so-called tweened value, it will update itself
   // smoothly instead of abruptly.
-  $: {
-    console.log(footerDuration)
-    // I'm checking on NaN, because when the component
-    // is first being rendered, not all of the height
-    // properties are immediately available.
-    if (!isNaN(newFooterTop)) {
-      footerTop.set(newFooterTop, {
-        duration: footerDuration
-      })
-
-      footerDuration = TRANSITION_TIME
-    }
-  }
+  $: footerTop.set(newFooterTop, {
+    duration: $route.last ? TRANSITION_TIME : 0
+  })
 </script>
 
 <style>

@@ -1,1 +1,1 @@
-export const TRANSITION_TIME = 5000
+export const TRANSITION_TIME = 500
